@@ -1,8 +1,8 @@
 function tctooltip(options){
     let defaultOptions = {
         trigger:'tooltip',
-        container:'tooltip-box',
-        content:'tooltip-content',
+        container:'tctooltip-box',
+        content:'tctooltip-content',
         position:'cursor',
         skew:'default',
         cssOuter:{},
@@ -24,9 +24,9 @@ function tctooltip(options){
     }
     let defaultInnerCss = {
         padding:'8px',
-        'background-color':'#f00',
+        'background-color':'#000',
         color:'#fff',
-        'font-size':'20px',
+        'font-size':'12px',
         'font-family':'arial, sans-serif',
         'text-align':'left',
         'border-radius':'8px',
