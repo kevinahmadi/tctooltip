@@ -20,8 +20,8 @@ function tctooltip(options){
         'z-index':1000,
         opacity:'0',
         display:'inline-block',
-        position:'absolute'
-    }
+        position:'absolute',
+    };
     let defaultInnerCss = {
         padding:'8px',
         'background-color':'#000',
@@ -40,9 +40,10 @@ function tctooltip(options){
         right:'0px'
     };
     options = {...defaultOptions, ...options};
-    this.init = function(){
+    let settings = [];
+    const init = function(){
         let trigger = document.querySelectorAll('.'+options.trigger);
-        this.settings = [];
+        
         trigger.forEach((element, i) => {
             settings[i] = {
                 boxIsOpen:false,
@@ -63,7 +64,7 @@ function tctooltip(options){
     }
     
 
-    this.attachEvents = function(trigger, i){
+    const attachEvents = function(trigger, i){
         trigger.addEventListener('mouseenter',function(){
             if(settings[i].boxIsOpen){
                 effects.fadeIn(i);
@@ -108,7 +109,7 @@ function tctooltip(options){
         })
     }
 
-    this.cssObjToString = function(obj, defaultValues){
+    const cssObjToString = function(obj, defaultValues){
         Object.entries(defaultValues).forEach(entry => {
             const [key, value] = entry;
             if(typeof obj[key] === 'undefined'){
@@ -121,7 +122,7 @@ function tctooltip(options){
         return str;
     }
 
-    this.createTooltipBox = function(i){
+    const createTooltipBox = function(i){
         const outerBox = document.createElement('div');
 
         outerBox.style.cssText = cssObjToString(options.cssOuter, defaultOuterCss);
@@ -162,28 +163,28 @@ function tctooltip(options){
         return outerBox;
     }
 
-    this.getTitleContent = function(element, i){
+    const getTitleContent = function(element, i){
         settings[i].titleContent = element.getAttribute('title');
         element.setAttribute('title','');
     }
-    this.replaceTitleContent = function(i){
+    const replaceTitleContent = function(i){
         settings[i].trigger.setAttribute('title', settings[i].titleContent);
     }
-    this.fillTitleContent = function(element, i){
+    const fillTitleContent = function(element, i){
         element.innerHTML = settings[i].titleContent;
     }
-    this.destroyTooltipBox = function(element, i){
+    const destroyTooltipBox = function(element, i){
         element.remove();
         settings[i].boxIsOpen=false;
         settings[i].reposition=options.position;
     }
 
-    this.openBoxOnTimer = function(element, i){
+    const openBoxOnTimer = function(element, i){
         settings[i].openTimer = setTimeout(function(){
 
         }, options.openDelay);
     }
-    this.removeBoxOnTimer = function(element, i){
+    const removeBoxOnTimer = function(element, i){
         settings[i].closeTimer = setTimeout(function(){
             effects.fadeOut(i);
             effects.slideOut(i);
@@ -199,7 +200,7 @@ function tctooltip(options){
         }, options.closeDelay)
     }
 
-    this.getElementPosition = function(element){
+    const getElementPosition = function(element){
         let boundaries = element.getBoundingClientRect();
         let boundariesAdj = {
             top:boundaries.top + document.documentElement.scrollTop,
@@ -207,7 +208,7 @@ function tctooltip(options){
         };
         return boundariesAdj;
     }
-    this.ifBoxAtEndOfWindow = function(box){
+    const ifBoxAtEndOfWindow = function(box){
         let boxPos = getElementPosition(box);
         if((boxPos.left + box.offsetWidth - document.documentElement.scrollLeft) + 1 > window.innerWidth){
             return true;
@@ -248,15 +249,17 @@ function tctooltip(options){
         return {above, below, left, right, skewDefault, skewRight, skewLeft, correctRight, correctLeft, correctTop, correctBottom};
     };
 
-    this.placeTooltipBox = function(box, trigger, i, evt){
+    const placeTooltipBox = function(box, trigger, i, evt){
         boxLocation = positionOfBox(box, trigger);
         if(options.position === 'cursor'){
             box.style.top = evt.pageY + 2 + 'px';
             box.style.left = evt.pageX + 2 + 'px';
             
             if(ifBoxAtEndOfWindow(box)){
-                box.style.left = box.offsetLeft - box.offsetWidth + 'px';
+                box.style.left = box.offsetLeft - box.offsetWidth + document.documentElement.scrollLeft + 'px';
+                boxLocation.skewLeft();
                 boxLocation.correctLeft();
+                box.style.width = '100%';
             }
             if(box.offsetTop + box.offsetHeight > window.innerHeight){
                 box.style.top = box.offsetTop - box.offsetHeight + 'px';
@@ -294,15 +297,12 @@ function tctooltip(options){
             }
         }
         if(options.position === 'left' || options.position === 'right'){
-            console.log({boxOffsetTop:box.offsetTop,scrollTop:document.documentElement.scrollTop});
             if(box.offsetTop + box.offsetHeight - document.documentElement.scrollTop > window.innerHeight){
                 boxLocation.correctTop();
-                console.log('here2');
                 
             }
             if(box.offsetTop - document.documentElement.scrollTop < 0){
                 boxLocation.correctBottom();
-                console.log('here');
             }
         }
         if(options.position === 'above' || options.position === 'below'){
@@ -334,12 +334,13 @@ function tctooltip(options){
             if(ifBoxAtEndOfWindow(box)){
                 boxLocation.skewLeft();
                 boxLocation.correctLeft();
+                box.style.width = '100%';
             }
         }
         
     }
 
-    this.stopClosing = function(i){
+    const stopClosing = function(i){
         clearTimeout(settings[i].closeTimer);
         clearTimeout(settings[i].fadeTimer);
     }
@@ -410,7 +411,7 @@ function tctooltip(options){
 
     
     
-    this.init();
+    init();
 };
 
 
