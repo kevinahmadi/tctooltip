@@ -19,16 +19,18 @@
             flex-direction:column;
             height:100vh;
         }
-        .scrollpage{
-            height:100vh;
-        }
             .layout-top{
                 flex:1 1 auto;
                 display:flex;
                 align-items:flex-start;
             }
             .layout-middle{
-                flex:4 1 auto;
+                flex:1 1 auto;
+                display:flex;
+                align-items:center;
+            }
+            .layout-photos{
+                flex:1 1 auto;
                 display:flex;
                 align-items:center;
             }
@@ -47,30 +49,130 @@
                     display:flex;
                     justify-content:center;
                 }
-                .layout-photo{
-                    flex:3 1 auto;
-                    display:flex;
-                    justify-content:center;
-                }
-                    .photograph{
-                        width:200px;
-                        height:100px;
-                        background-color:rgb(24, 198, 241);
-                    }
                 .layout-right{
                     flex:1 1 auto;
                     display:flex;
                     justify-content:end;
                 }
+
+            .arrow{
+                font-size:80px;
+            }
     </style>
     <script type="text/javascript" src="../js/tctooltip.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function(){
             tctooltip({
-                position:'above',
+                trigger:'tooltip-cursor',
+                position:'cursor',
+                openDelay:500,
                 effectSpeed:500,
                 fade:true,
                 slide:false,
+                cssInner:{
+                    'background-color':'#c00',
+                    border:'1px solid #ccc',
+                    'max-width':'300px',
+                    'font-family':'"Courier", serif'
+                }
+            });
+            tctooltip({
+                trigger:'tooltip-left',
+                position:'left',
+                effectSpeed:500,
+                fade:true,
+                slide:true,
+            });
+            tctooltip({
+                trigger:'tooltip-right',
+                position:'right',
+                effectSpeed:500,
+                fade:true,
+                slide:true,
+            });
+            tctooltip({
+                trigger:'tooltip-noeffect',
+                position:'right',
+                effectSpeed:0,
+                fade:false,
+                slide:false,
+                cssInner:{
+                    'background-color':'#0cc',
+                    color:'#000',
+                    border:'2px dotted #f00',
+                    'max-width':'200px'
+                }
+            });
+            tctooltip({
+                trigger:'tooltip-above',
+                position:'above',
+                effectSpeed:500,
+                fade:true,
+                slide:true
+            });
+            tctooltip({
+                trigger:'tooltip-above-left',
+                position:'above',
+                skew:'left',
+                effectSpeed:500,
+                fade:true,
+                slide:true
+            });
+            tctooltip({
+                trigger:'tooltip-below-right',
+                position:'below',
+                skew:'right',
+                effectSpeed:500,
+                fade:true,
+                slide:true
+            });
+            tctooltip({
+                trigger:'tooltip-photo-above',
+                position:'above',
+                effectSpeed:500,
+                fade:true,
+                slide:true,
+                cssOuter:{
+                    'max-width':'200px'
+                }
+            });
+            tctooltip({
+                trigger:'tooltip-below',
+                position:'below',
+                effectSpeed:500,
+                fade:true,
+                slide:true,
+            });
+            tctooltip({
+                trigger:'tooltip-bigslide',
+                position:'left',
+                effectSpeed:500,
+                fade:true,
+                slide:true,
+                slideAmount:'100px',
+                cssInner:{
+                    'background-color':'rgb(248, 87, 12)'
+                }
+            });
+            tctooltip({
+                trigger:'tooltip-styled',
+                position:'above',
+                effectSpeed:500,
+                fade:true,
+                slide:true,
+                cssInner:{
+                    padding:'20px',
+                    display:'flex',
+                    'align-items':'center',
+                    'justify-content':'center',
+                    'font-family':'"Comic Sans MS", "Comic Sans", cursive',
+                    'font-size':'16px',
+                    width:'300px',
+                    height:'300px',
+                    'border-radius':'50%',
+                    'box-shadow':'4px 4px 10px #999',
+                    'background':'linear-gradient(45deg, #570979, #00d4ff)'
+                }
             });
         }, false);
     </script>
@@ -79,76 +181,49 @@
     <div class="layout-container">
         <div class="layout-top">
             <div class="layout-left">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
+                <span class="tooltip-left" title="The tooltip will move itself to remain on the screen.">[?]</span>
             </div>
             <div class="layout-center">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
+                <span class="tooltip-above" title="This tooltip is set to 'above' but moves below when there is no room above.">[?]</span>
             </div>
             <div class="layout-right">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
+                <span class="tooltip-right" title="Same for this tooltip, which is set to 'right'.">[?]</span>
             </div>
         </div>
         <div class="layout-middle">
             <div class="layout-left">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
+                <span class="tooltip-noeffect" title="The slide animation and fade animation can be turned off when instanced.">[?]</span>
             </div>
             <div class="layout-center">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-            <div class="layout-photo">
-                <div class="photograph tooltip" title="A title on a photo"></div>
+                <span class="tooltip-left arrow" title="position:left">&#11013;&#65039;</span>
+                <span class="tooltip-above-left arrow" title="position:above;skew:left">&#8598;&#65039;</span>
+                <span class="tooltip-above arrow" title="position:above">&#11014;&#65039;</span>
+                <span class="tooltip-below arrow" title="position:below">&#11015;&#65039;</span>
+                <span class="tooltip-below-right arrow" title="position:below;skew:right">&#8600;&#65039;</span>
+                <span class="tooltip-right arrow" title="position:right">&#10145;&#65039;</span>
             </div>
             <div class="layout-right">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
+                <span class="tooltip-bigslide" title="The slide amount can be changed!">[?]</span>
+            </div>
+        </div>
+        <div class="layout-photos">
+            <div class="layout-left">
+            </div>
+            <div class="layout-center">
+                <span class="tooltip-photo-above" title="This tooltip attaches above the picture, but also has a width limit to not stretch across the entire screen."><img src="https://picsum.photos/id/1062/200/100"></span>
+                <span class="tooltip-cursor" title="This is the classic tooltip hover effect with custom css."><img src="https://picsum.photos/id/237/200/100"></span>
+                <span class="tooltip-below" title="You can attach the tooltip to any element that has a title attribute."><img src="https://picsum.photos/id/169/200/100"></span>
+            </div>
+            <div class="layout-right">
             </div>
         </div>
         <div class="layout-bottom">
             <div class="layout-left">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
             </div>
             <div class="layout-center">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
+                <span class="tooltip-styled" title="Style it however you like!">[?]</span>
             </div>
             <div class="layout-right">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-        </div>
-    </div>
-    <div class="layout-container">
-        <div class="layout-top">
-            <div class="layout-left">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-            <div class="layout-center">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-            <div class="layout-right">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-        </div>
-        <div class="layout-middle">
-            <div class="layout-left">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-            <div class="layout-center">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-            <div class="layout-photo">
-                <div class="photograph tooltip" title="A title on a photo"></div>
-            </div>
-            <div class="layout-right">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-        </div>
-        <div class="layout-bottom">
-            <div class="layout-left">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-            <div class="layout-center">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
-            </div>
-            <div class="layout-right">
-                <span class="tooltip" title="This is the tooltip information section.">[?]</span>
             </div>
         </div>
     </div>
