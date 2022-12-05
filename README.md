@@ -1,6 +1,8 @@
 # TCtooltip
 TCtooltip is a simple, customizable, pure javascript tooltip plugin that works with any javascript code.
 
+[View the example page here.](https://htmlpreview.github.io/?https://github.com/kevinahmadi/tctooltip/blob/main/example/index.html)
+
 ### Features
 TCTooltip is lightweight and requires no additional frameworks or libraries.
 
