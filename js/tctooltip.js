@@ -12,7 +12,8 @@ function tctooltip(options){
         effectSpeed:500,
         slide:true,
         slideAmount:'6px',
-        fade:true
+        fade:true,
+        stayOpenOnHover:true
     };
     let defaultOuterCss = {
         padding:'3px',
@@ -151,6 +152,9 @@ function tctooltip(options){
         settings[i].boxIsOpen=true;
 
         outerBox.addEventListener('mouseenter', function(){
+            if(!options.stayOpenOnHover){
+                return;
+            }
             if(settings[i].boxIsOpen){
                 effects.fadeIn(i);
                 effects.slideIn(i);
