@@ -156,3 +156,11 @@ tctooltip({
 
 `default: '6px'`
 
+---
+
+`stayOpenOnHover` boolean, indicates if the toolbox stays open when a user hovers their mouse over the opened box. Turn to false to close the box when mouse leaves the trigger, even if mouse is over the box.
+
+`default: true`
+
+---
+
